@@ -1,0 +1,33 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="1755072736832-1" author="Voyachek Roman">
+        <createTable tableName="user">
+            <column name="id" type="UUID" defaultValueComputed="gen_random_uuid()" remarks="Идентификатор записи">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="user_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(255)" remarks="Имя пользователя">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(255)" remarks="Email пользователя">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="VARCHAR(255)" remarks="Роль пользователя в системе">
+                <constraints nullable="false"/>
+            </column>
+            <column name="registration_date" type="TIMESTAMP WITH TIME ZONE"
+                    defaultValueComputed="CURRENT_TIMESTAMP" remarks="Дата/время регистрации пользователя">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1755072740453-2" author="Voyachek Roman">
+        <addUniqueConstraint columnNames="name" constraintName="user_username_uk" tableName="user"/>
+        <addUniqueConstraint columnNames="email" constraintName="user_email_uk" tableName="user"/>
+    </changeSet>
+
+</databaseChangeLog>

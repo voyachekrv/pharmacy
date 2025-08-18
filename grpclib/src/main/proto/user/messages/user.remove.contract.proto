@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option java_package = "com.voyachek.pharmacy.grpclib.user";
+
+/** Запрос на удаление пользователя */
+message UserRemoveRequest {
+  /** Идентификатор пользователя */
+  string id = 1;
+}
+
+/** Результат запроса на удаление пользователя */
+message UserRemoveResponse {
+  /** Идентификатор пользователя */
+  string id = 1;
+  /** Имя пользователя */
+  optional string name = 2;
+}

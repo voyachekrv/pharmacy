@@ -1,0 +1,63 @@
+app:
+  database:
+    protocol: jdbc
+    host: localhost
+    port: 5432
+    databaseName: pharmacy
+    schema: user
+    username: pharmacy
+    password: pharmacy
+
+spring:
+  application:
+    name: 'user'
+
+  liquibase:
+    enabled: true
+    drop-first: false
+    default-schema: ${app.database.schema}
+    liquibase-schema: ${app.database.schema}
+    driver-class-name: ${spring.datasource.driver-class-name}
+    change-log: classpath:db/changelog/changelog-master.xml
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: ${app.database.protocol}:postgresql://${app.database.host}:${app.database.port}/${app.database.databaseName}?currentSchema=${app.database.schema}
+    username: ${app.database.username}
+    password: ${app.database.password}
+    hikari:
+      schema: ${app.database.schema}
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    generate-ddl: false
+    properties:
+      hibernate:
+        default_schema: ${app.database.schema}
+        format_sql: true
+        jdbc.lob.non_contextual_creation: true
+        validator.apply_to_ddl: false
+
+  grpc:
+    server:
+      port: 9001
+
+  cloud:
+    consul:
+      port: 8502
+      host: 127.0.0.1
+      discovery:
+        heartbeat:
+          enabled: false
+        register-health-check: false
+        service-name: ${spring.application.name}
+        port: ${spring.grpc.server.port}
+        hostname: '0.0.0.0'
+        enabled: true
+      enabled: true
+
+server:
+  http2:
+    enabled: true
+  port: ${spring.grpc.server.port}

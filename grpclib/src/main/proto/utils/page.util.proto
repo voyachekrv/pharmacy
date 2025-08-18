@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+option java_package = "com.voyachek.pharmacy.grpclib.utils.page";
+
+message PageRequest {
+  int32 page = 1;
+  int32 size = 2;
+}
+
+message PageResponse {
+  int32 page = 1;
+  int32 size = 2;
+  int64 totalElements = 3;
+  int32 totalPages = 4;
+  bool last = 5;
+}

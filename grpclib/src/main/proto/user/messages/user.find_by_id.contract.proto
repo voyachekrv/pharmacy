@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option java_package = "com.voyachek.pharmacy.grpclib.user";
+
+import "user/messages/user_role.enum.proto";
+import "google/protobuf/timestamp.proto";
+
+/** Запрос на поиск пользователя по ID */
+message UserFindByIdRequest {
+  /** ID пользователя */
+  string id = 1;
+}
+
+/** Результат запроса поиска пользователей */
+message UserFindByIdResponse {
+  /** ID пользователя */
+  string id = 1;
+  /** Имя пользователя */
+  string name = 2;
+  /** Email пользователя */
+  string email = 3;
+  /** Роль пользователя в системе */
+  UserRole role = 4;
+  /** Дата/время создания записи */
+  google.protobuf.Timestamp registrationDate = 5;
+}

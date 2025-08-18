@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+option java_package = "com.voyachek.pharmacy.grpclib.user";
+
+import "user/messages/user.find_by_id.contract.proto";
+import "utils/page.util.proto";
+
+message UserFindAllResponse {
+  repeated UserFindByIdResponse content = 1;
+  PageResponse page = 2;
+}

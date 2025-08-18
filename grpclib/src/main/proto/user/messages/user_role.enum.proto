@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+option java_package = "com.voyachek.pharmacy.grpclib.user";
+
+/** Роль пользователя в системе */
+enum UserRole {
+  /** Работник системы заказов */
+  EMPLOYEE = 0;
+  /** Покупатель */
+  CUSTOMER = 1;
+}

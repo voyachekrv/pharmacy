@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+option java_package = "com.voyachek.pharmacy.grpclib.user";
+option java_outer_classname = "UserEndpointProto";
+
+import "user/messages/user.create.contract.proto";
+import "user/messages/user.update.contract.proto";
+import "user/messages/user.remove.contract.proto";
+import "user/messages/user.find_by_id.contract.proto";
+import "user/messages/user.find_all.contract.proto";
+import "utils/page.util.proto";
+
+/* Сервис по работе с сущностью "Пользователь" */
+service UserEndpoint {
+  /* Создание нового пользователя */
+  rpc Create (UserCreateRequest) returns (UserCreateResponse) {}
+
+  /* Обновление пользователя */
+  rpc Update (UserUpdateRequest) returns (UserUpdateResponse) {}
+
+  /* Удаление пользователя */
+  rpc Remove(UserRemoveRequest) returns (UserRemoveResponse) {}
+
+  /* Поиск пользователя по ID */
+  rpc FindById(UserFindByIdRequest) returns (UserFindByIdResponse) {}
+
+  /* Получение страницы списка пользователей */
+  rpc FindAll(PageRequest) returns (UserFindAllResponse);
+}

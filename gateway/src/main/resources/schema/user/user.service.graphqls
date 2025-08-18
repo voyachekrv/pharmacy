@@ -1,0 +1,97 @@
+type Mutation {
+    # Создание нового пользователя
+    createUser(input: UserCreateInput!): UserCreateOutput!
+
+    # Обновление пользователя
+    updateUser(input: UserUpdateInput!) : UserUpdateOutput!
+
+    # Удаление пользователя
+    deleteUser(input: UserRemoveInput!): UserRemoveOutput!
+}
+
+type Query {
+    # Поиск пользователя по ID
+    getUserById(id: String!): User!
+
+    # Постраничный вывод множества пользователей
+    getUsersPage(input: PageRequest!): UserPage!
+}
+
+# Роль пользователя в системе
+enum UserRole {
+    #  Работник системы заказов
+    EMPLOYEE
+    # Покупатель
+    CUSTOMER
+}
+
+# Запрос на создание пользователя
+input UserCreateInput {
+    # Имя пользователя
+    name: String!
+    # Email пользователя
+    email: String!
+    # Роль пользователя в системе
+    role: UserRole!
+}
+
+# Результат создания пользователя
+type UserCreateOutput {
+    id: String!
+}
+
+# Запрос на обновление пользователя
+input UserUpdateInput {
+    # Идентификатор записи
+    id: String!
+    # Имя пользователя
+    name: String
+    # Email пользователя
+    email: String
+}
+
+# Результат обновления пользователя
+type UserUpdateOutput {
+    # Идентификатор записи
+    id: String!
+    # Имя пользователя
+    name: String
+    # Email пользователя
+    email: String
+}
+
+# Запрос на удаление пользователя
+input UserRemoveInput {
+    # Идентификатор записи
+    id: String!
+}
+
+# Результат удаления пользователя
+type UserRemoveOutput {
+    # Идентификатор записи
+    id: String!
+    # Имя пользователя
+    name: String
+}
+
+# Пользователь
+type User {
+    # Идентификатор записи
+    id: String!
+    # Имя пользователя
+    name: String
+    # Email пользователя
+    email: String
+    # Роль пользователя в системе
+    role: UserRole
+    # Дата регистрации в системе
+    registrationDate: String
+}
+
+# Страница пользователей
+type UserPage {
+    # Записи на странице
+    content: [User!]!
+    # Информация о странице
+    pageInfo: PageInfo
+}

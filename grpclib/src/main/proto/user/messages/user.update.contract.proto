@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option java_package = "com.voyachek.pharmacy.grpclib.user";
+
+/** Запрос на обновление пользователя */
+message UserUpdateRequest {
+  /** Идентификатор пользователя */
+  string id = 1;
+  /** Имя пользователя */
+  optional string name = 2;
+  /** Email пользователя */
+  optional string email = 3;
+}
+
+/** Обновленные поля пользователя и его id */
+message UserUpdateResponse {
+  /** Идентификатор пользователя */
+  string id = 1;
+  /** Имя пользователя */
+  optional string name = 2;
+  /** Email пользователя */
+  optional string email = 3;
+}
