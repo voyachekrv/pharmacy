@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+option java_package = "com.voyachek.pharmacy.grpclib.utils.reference";
+
+import "utils/page.util.proto";
+
+/** Справочное значение */
+message DefaultReference {
+  /** Идентификатор записи */
+  string id = 1;
+  /** Ключ справочного значения */
+  string key = 2;
+  /** Имя значения */
+  string name = 3;
+  /** Порядок сортировки значения для вывода */
+  int32 ordering = 4;
+}
+
+/** Объект ключа справочного значения */
+message DefaultReferenceKey {
+  /** Ключ справочного значения */
+  string key = 1;
+}
+
+/** Объект фильтрации справочника */
+message DefaultReferenceQuery {
+  /** Фильтр по паттерну имени */
+  optional string name = 1;
+}
+
+/** Результат поиска значения справочника по его ключу */
+message DefaultReferenceCollection {
+  /** Список значений справочника */
+  repeated DefaultReference content = 1;
+}

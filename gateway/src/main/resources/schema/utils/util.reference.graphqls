@@ -1,0 +1,17 @@
+# Фильтр справочника
+input ReferenceQuery {
+    # Фрагмент имени
+    name: String
+}
+
+# Справочник
+type Reference {
+    # ID записи
+    id: String
+    # Ключ справочного значения
+    key: String!
+    # Имя значения
+    name: String!
+    # Порядок сортировки значения для вывода
+    ordering: Int
+}

@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option java_package = "com.voyachek.pharmacy.grpclib.medication";
+
+import "google/protobuf/timestamp.proto";
+
+message MedicationUpdatePriceRequest {
+  string id = 1;
+  double newPrice = 2;
+}
+
+message MedicationUpdatePriceResponse {
+  string id = 1;
+  string name = 2;
+  double oldPrice = 3;
+  double newPrice = 4;
+  google.protobuf.Timestamp updatedAt = 5;
+}

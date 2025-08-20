@@ -13,13 +13,13 @@ public class LoggingInterceptor implements ServerInterceptor {
     public <ReqT, RespT> ServerCall.Listener<ReqT> interceptCall(ServerCall<ReqT, RespT> call,
                                                                  Metadata headers,
                                                                  ServerCallHandler<ReqT, RespT> next) {
-        log.info("→ вызов gRPC: {} {}", call.getMethodDescriptor().getFullMethodName(), headers);
+        log.debug("→ вызов gRPC: {} {}", call.getMethodDescriptor().getFullMethodName(), headers);
 
         ServerCall.Listener<ReqT> listener = next.startCall(
                 new ForwardingServerCall.SimpleForwardingServerCall<>(call) {
                     @Override
                     public void sendMessage(RespT message) {
-                        log.info("← ответ gRPC: [{}]", message);
+                        log.debug("← ответ gRPC: [{}]", message);
                         super.sendMessage(message);
                     }
                 },

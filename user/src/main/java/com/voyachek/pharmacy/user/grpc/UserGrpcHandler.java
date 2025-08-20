@@ -73,7 +73,7 @@ public class UserGrpcHandler extends UserEndpointGrpc.UserEndpointImplBase {
                         StreamObserver<UserFindAllContract.UserFindAllResponse> responseObserver) {
         log.info("Принят запрос на получение списка пользователей, request = [{}]", request);
         var result = userService.findAll(request);
-        log.info("Пользователи найденыи, response = [{}]", result);
+        log.info("Пользователи найдены, length = [{}]", result.getContentCount());
 
         responseObserver.onNext(result);
         responseObserver.onCompleted();

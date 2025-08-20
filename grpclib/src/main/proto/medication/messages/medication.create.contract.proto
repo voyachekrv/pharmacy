@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option java_package = "com.voyachek.pharmacy.grpclib.medication";
+
+import "medication/messages/medication_substance_concentration.contract.proto";
+
+/** Запрос на создание препарата */
+message MedicationCreateRequest {
+  /** Наименование препарата */
+  string name = 1;
+  /** Цена */
+  double price = 2;
+  /** Отпускается ли препарат исключительно по рецепту */
+  bool isPrescriptionOnly = 3;
+  /** Категории препарата */
+  repeated string medicationCategories = 4;
+  /** Действующие вещества препарата */
+  repeated MedicationSubstanceConcentration activeSubstances = 5;
+}
+
+/** Результат создания препарата */
+message MedicationCreateResponse {
+  /** ID препарата */
+  string id = 1;
+}

@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option java_package = "com.voyachek.pharmacy.grpclib.medication";
+
+/** Запрос на удаление препарата */
+message MedicationRemoveRequest {
+  /** Идентификатор препарата */
+  string id = 1;
+}
+
+/** Результат запроса на удаление препарата */
+message MedicationRemoveResponse {
+  /** Идентификатор препарата */
+  string id = 1;
+  /** Имя препарата */
+  optional string name = 2;
+}

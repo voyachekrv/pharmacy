@@ -1,0 +1,47 @@
+extend type Mutation {
+    # Создание нового препарата
+    createMedication(input: MedicationCreateInput!): MedicationCreateOutput!
+    deleteMedication(id: String!): MedicationDeleteOutput!
+    updateMedicationPrice(id: String!, newPrice: Float!): MedicationUpdatePriceOutput!
+}
+
+# Концентрация действующего вещества в препарате
+input MedicationSubstanceConcentrationCreateInput {
+    # Ключ справочника "Действующее вещество"
+    refSubstanceKey: String!
+    # Количество вещества
+    concentration: Float!
+}
+
+# Контракт на создание нового препарата
+input MedicationCreateInput {
+    # Название
+    name: String!
+    # Цена
+    price: Float!
+    # Отпускается ли препарат только по рецепту
+    isPrescriptionOnly: Boolean!
+    # Ключи справочника "Категория препарата"
+    medicationCategories: [String]!
+    # Концентрация действующего вещества в препарате
+    activeSubstances: [MedicationSubstanceConcentrationCreateInput]!
+}
+
+# Результат создания нового препарата
+type MedicationCreateOutput {
+    id: String!
+}
+
+type MedicationDeleteOutput {
+    id: String!
+    name: String
+}
+
+type MedicationUpdatePriceOutput {
+    id: String!
+    name: String
+    oldPrice: Float
+    newPrice: Float
+    updatedAt: String
+}
+

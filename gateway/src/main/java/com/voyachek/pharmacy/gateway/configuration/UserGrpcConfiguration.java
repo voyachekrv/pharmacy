@@ -1,25 +1,29 @@
 package com.voyachek.pharmacy.gateway.configuration;
 
+import com.voyachek.pharmacy.gateway.configuration.factory.GrpcConsulChannelFactory;
 import com.voyachek.pharmacy.grpclib.user.UserEndpointGrpc;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.grpc.client.GrpcChannelFactory;
 
 /**
  * Конфигурация gRPC-клиента для сервиса `user` для работы с сущностью "Пользователь"
  */
 @Configuration
+@RequiredArgsConstructor
+@ConditionalOnProperty(name = {"spring.cloud.consul.discovery.enabled", "app.services.user.enabled"},
+        havingValue = "true",
+        matchIfMissing = true)
 public class UserGrpcConfiguration {
 
-    @Value("${com.voyachek.pharmacy.user.grpc.host}")
+    @Value("${app.services.user.host}")
     private String host;
 
-    @Value("${com.voyachek.pharmacy.user.grpc.port}")
-    private int port;
-
     @Bean
-    public UserEndpointGrpc.UserEndpointBlockingStub userEndpointBlockingStub(GrpcChannelFactory channels) {
-        return UserEndpointGrpc.newBlockingStub(channels.createChannel(String.format("%s:%d", host, port)));
+    public UserEndpointGrpc.UserEndpointBlockingStub userEndpointBlockingStub(GrpcConsulChannelFactory channelFactory) {
+        var channel = channelFactory.getChannel(host);
+        return UserEndpointGrpc.newBlockingStub(channel);
     }
 }

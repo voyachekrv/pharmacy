@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+option java_package = "com.voyachek.pharmacy.grpclib.medication";
+
+/** Концентрация действующего вещества */
+message MedicationSubstanceConcentration {
+  /** Ключ справочника "Действующее вещество" */
+  string refSubstanceKey = 1;
+  /** Количество действующего вещества */
+  double concentration = 2;
+}

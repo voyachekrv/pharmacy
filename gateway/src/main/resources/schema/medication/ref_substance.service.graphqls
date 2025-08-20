@@ -1,0 +1,7 @@
+extend type Query {
+    # Получение объекта справочника "Действующее вещество" по его ключу
+    getRefSubstanceByKey(key: String!): Reference!
+
+    # Получение отфильтрованного списка объектов справочника "Действующее вещество"
+    getAllRefSubstance(query: ReferenceQuery!): [Reference]!
+}

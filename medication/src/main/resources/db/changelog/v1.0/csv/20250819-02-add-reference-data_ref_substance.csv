@@ -1,0 +1,31 @@
+key,name,ordering
+PARACETAMOL,"Парацетамол",10
+IBUPROFEN,"Ибупрофен",20
+AMOXICILLIN,"Амоксициллин",30
+AZITHROMYCIN,"Азитромицин",40
+OSELTAMIVIR,"Осельтамивир",50
+UMIFENOVIR,"Умифеновир",60
+FLUCONAZOLE,"Флуконазол",70
+KETOCONAZOLE,"Кетоконазол",80
+LORATADINE,"Лоратадин",90
+CETIRIZINE,"Цетиризин",100
+ATORVASTATIN,"Аторвастатин",110
+ENALAPRIL,"Эналаприл",120
+FUROSEMIDE,"Фуросемид",130
+HYDROCHLOROTHIAZIDE,"Гидрохлортиазид",140
+LEVOTHYROXINE,"Левотироксин",150
+INSULIN,"Инсулин",160
+INTERFERON,"Интерферон альфа",170
+AZOXIMER,"Азоксимера бромид",180
+ASCORBIC_ACID,"Аскорбиновая кислота",190
+CALCIUM_CARBONATE,"Кальция карбонат",200
+OMEPRAZOLE,"Омепразол",210
+DOMPERIDONE,"Домперидон",220
+SALBUTAMOL,"Сальбутамол",230
+AMBROXOL,"Амброксол",240
+HYDROCORTISONE,"Гидрокортизон",250
+CLOBETASOL,"Клобетазол",260
+DIAZEPAM,"Диазепам",270
+PHENOBARBITAL,"Фенобарбитал",280
+METFORMIN,"Метформин",290
+GLIBENCLAMIDE,"Глибенкламид",300

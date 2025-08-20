@@ -10,7 +10,7 @@ app:
 
 spring:
   application:
-    name: 'user'
+    name: user
 
   liquibase:
     enabled: true
@@ -45,19 +45,16 @@ spring:
 
   cloud:
     consul:
-      port: 8502
-      host: 127.0.0.1
+      host: localhost
+      port: 8500
       discovery:
-        heartbeat:
-          enabled: false
-        register-health-check: false
-        service-name: ${spring.application.name}
         port: ${spring.grpc.server.port}
-        hostname: '0.0.0.0'
+        hostname: localhost
+        register: true
         enabled: true
-      enabled: true
-
-server:
-  http2:
-    enabled: true
-  port: ${spring.grpc.server.port}
+        prefer-ip-address: false
+        health-check-type: ttl
+        ttl: 15s
+        instance-id: ${spring.application.name}-${random.value}
+        heartbeat:
+          enabled: true

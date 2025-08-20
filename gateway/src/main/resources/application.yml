@@ -1,27 +1,23 @@
+app:
+  services:
+    user:
+      host: 'user'
+      enabled: false
+    medication:
+      host: 'medication'
+      enabled: true
+
 server:
   port: 3000
 
 spring:
   application:
-    name: 'gateway'
+    name: gateway
+
   cloud:
     consul:
-      service-registry:
-        enabled: true
       port: 8500
       host: localhost
       discovery:
-        heartbeat:
-          enabled: false
-        register-health-check: false
-        service-name: ${spring.application.name}
-    discovery:
-      enabled: true
-
-com:
-  voyachek:
-    pharmacy:
-      user:
-        grpc:
-          host: '0.0.0.0'
-          port: 9001
+        enabled: true
+        register: false

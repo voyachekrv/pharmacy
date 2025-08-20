@@ -11,7 +11,7 @@ import lombok.Data;
 public class UserCreateOutput {
 
     /**
-     * ID пользователя
+     * Идентификатор записи
      */
-    private String id;
+    protected String id;
 }

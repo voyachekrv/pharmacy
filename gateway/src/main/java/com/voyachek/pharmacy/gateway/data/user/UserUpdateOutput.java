@@ -3,7 +3,7 @@ package com.voyachek.pharmacy.gateway.data.user;
 import lombok.Data;
 
 /**
- * Выходные данные для обновленияо пользователя
+ * Выходные данные для обновления пользователя
  */
 @Data
 public class UserUpdateOutput {

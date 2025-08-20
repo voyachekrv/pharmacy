@@ -1,0 +1,25 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="1755608585358-1" author="Voyachek Roman">
+        <loadUpdateData
+                primaryKey="key"
+                tableName="ref_category"
+                file="csv/20250819-02-add-reference-data_ref_category.csv"
+                relativeToChangelogFile="true">
+        </loadUpdateData>
+    </changeSet>
+
+    <changeSet id="1755608585358-2" author="Voyachek Roman">
+        <loadUpdateData
+                primaryKey="key"
+                tableName="ref_substance"
+                file="csv/20250819-02-add-reference-data_ref_substance.csv"
+                relativeToChangelogFile="true">
+        </loadUpdateData>
+    </changeSet>
+
+</databaseChangeLog>
