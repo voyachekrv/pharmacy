@@ -1,0 +1,16 @@
+key,name,ordering
+ANALGESICS,"Обезболивающие",10
+ANTIBIOTICS,"Антибиотики",20
+ANTIVIRALS,"Противовирусные",30
+ANTIFUNGALS,"Противогрибковые",40
+ANTIHISTAMINES,"Противоаллергические",50
+CARDIOVASCULAR,"Сердечно-сосудистые",60
+DIURETICS,"Мочегонные",70
+HORMONAL,"Гормональные препараты",80
+IMMUNOMODULATORS,"Иммуномодуляторы",90
+VITAMINS,"Витамины и минералы",100
+GASTROINTESTINAL,"Желудочно-кишечные",110
+RESPIRATORY,"Препараты для дыхательных путей",120
+DERMATOLOGICAL,"Дерматологические средства",130
+SEDATIVES,"Седативные препараты",140
+ANTIDIABETICS,"Противодиабетические",150

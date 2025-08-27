@@ -3,6 +3,9 @@ package com.voyachek.pharmacy.gateway.data.user;
 import lombok.Builder;
 import lombok.Data;
 
+/**
+ * Пользователь
+ */
 @Data
 @Builder
 public class User {

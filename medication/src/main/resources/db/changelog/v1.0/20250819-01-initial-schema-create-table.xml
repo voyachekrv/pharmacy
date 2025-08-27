@@ -1,0 +1,146 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="1755604061909-1" author="Voyachek Roman">
+        <createTable tableName="ref_category" remarks="Справочник: Категории препаратов">
+            <column name="id" type="UUID" defaultValueComputed="gen_random_uuid()" remarks="Идентификатор записи">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="ref_category_pkey"/>
+            </column>
+            <column name="key" remarks="Идентификатор" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)" remarks="Наименование категории">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ordering" type="INTEGER" remarks="Порядковый номер">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP WITH TIME ZONE"
+                    defaultValueComputed="CURRENT_TIMESTAMP" remarks="Дата/время создания записи">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITH TIME ZONE" remarks="Дата/время модификации записи"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1755604061909-2" author="Voyachek Roman">
+        <createTable tableName="ref_substance" remarks="Справочник: Действующие вещества">
+            <column name="id" type="UUID" defaultValueComputed="gen_random_uuid()" remarks="Идентификатор записи">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="ref_substance_pkey"/>
+            </column>
+            <column name="key" remarks="Идентификатор" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)" remarks="Наименование действующего вещества">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ordering" type="INTEGER" remarks="Порядковый номер">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP WITH TIME ZONE"
+                    defaultValueComputed="CURRENT_TIMESTAMP" remarks="Дата/время создания записи">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITH TIME ZONE" remarks="Дата/время модификации записи"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1755604061909-3" author="Voyachek Roman">
+        <createTable tableName="medication" remarks="Препарат">
+            <column name="id" type="UUID" defaultValueComputed="gen_random_uuid()" remarks="Идентификатор записи">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="medication_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(255)" remarks="Наименование препарата">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="NUMERIC(19, 2)" remarks="Текущая цена препарата">
+                <constraints nullable="false"/>
+            </column>
+            <column name="old_price" type="NUMERIC(19, 2)" remarks="Старая цена препарата"/>
+            <column name="is_prescription_only" type="BOOLEAN" remarks="Отпускается ли препарат по рецепту">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP WITH TIME ZONE"
+                    defaultValueComputed="CURRENT_TIMESTAMP" remarks="Дата/время создания записи">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITH TIME ZONE" remarks="Дата/время модификации записи"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1755604061909-4" author="Voyachek Roman">
+        <createTable tableName="medication_category" remarks="Связь препарата и его категории">
+            <column name="medication_id" type="UUID" remarks="Идентификатор лекарства">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ref_category_id" type="UUID" remarks="Идентификатор категории">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1755604061909-5" author="Voyachek Roman">
+        <createTable tableName="medication_substance" remarks="Связь препарата и его действующего вещества">
+            <column name="medication_id" type="UUID" remarks="Идентификатор лекарства">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ref_substance_id" type="UUID" remarks="Идентификатор действующего вещества">
+                <constraints nullable="false"/>
+            </column>
+            <column name="concentration" type="DECIMAL" remarks="Концентрация действующего вещества в данном препарате">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1755604061909-10" author="Voyachek Roman">
+        <addUniqueConstraint columnNames="key" constraintName="ref_category_key_uk" tableName="ref_category"/>
+        <addUniqueConstraint columnNames="key" constraintName="ref_substance_key_uk" tableName="ref_substance"/>
+    </changeSet>
+
+    <changeSet id="1755604061909-20" author="Voyachek Roman">
+        <addPrimaryKey
+                tableName="medication_category"
+                columnNames="medication_id,ref_category_id"
+                constraintName="medication_category_pkey"/>
+        <addPrimaryKey
+                tableName="medication_substance"
+                columnNames="medication_id,ref_substance_id"
+                constraintName="medication_substance_pkey"/>
+    </changeSet>
+
+    <changeSet id="1755604061909-30" author="Voyachek Roman">
+        <addForeignKeyConstraint
+                baseTableName="medication_category"
+                baseColumnNames="medication_id"
+                constraintName="fk_medication_category_medication"
+                referencedTableName="medication"
+                referencedColumnNames="id"
+                onDelete="CASCADE"/>
+        <addForeignKeyConstraint
+                baseTableName="medication_category"
+                baseColumnNames="ref_category_id"
+                constraintName="fk_medication_category_category"
+                referencedTableName="ref_category"
+                referencedColumnNames="id"
+                onDelete="CASCADE"/>
+        <addForeignKeyConstraint
+                baseTableName="medication_substance"
+                baseColumnNames="medication_id"
+                constraintName="fk_medication_substance_medication"
+                referencedTableName="medication"
+                referencedColumnNames="id"
+                onDelete="CASCADE"/>
+        <addForeignKeyConstraint
+                baseTableName="medication_substance"
+                baseColumnNames="ref_substance_id"
+                constraintName="fk_medication_substance_substance"
+                referencedTableName="ref_substance"
+                referencedColumnNames="id"
+                onDelete="CASCADE"/>
+    </changeSet>
+
+</databaseChangeLog>

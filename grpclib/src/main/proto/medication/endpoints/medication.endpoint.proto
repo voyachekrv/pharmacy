@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+option java_package = "com.voyachek.pharmacy.grpclib.medication";
+option java_outer_classname = "MedicationEndpointProto";
+
+import "medication/messages/medication.create.contract.proto";
+import "medication/messages/medication.remove.contract.proto";
+import "medication/messages/medication.update.contract.proto";
+import "medication/messages/medication.find_all.contract.proto";
+
+/* Сервис по работе с сущностью "Препарат" */
+service MedicationEndpoint {
+  /* Создание нового препарата */
+  rpc Create(MedicationCreateRequest) returns (MedicationCreateResponse) {}
+
+  /* Удаление препарата */
+  rpc Remove(MedicationRemoveRequest) returns (MedicationRemoveResponse) {}
+
+  /* Изменение цены препарата */
+  rpc UpdatePrice(MedicationUpdatePriceRequest) returns (MedicationUpdatePriceResponse) {}
+
+  /* Поиск списка препаратов по фильтру */
+  rpc FindAll(MedicationFindAllRequest) returns (MedicationFindAllResponse) {}
+}

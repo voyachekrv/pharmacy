@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option java_package = "com.voyachek.pharmacy.grpclib.medication";
+option java_outer_classname = "RefCategoryEndpointProto";
+
+import "utils/default_reference.util.proto";
+
+/** Сервис по работе со справочником "Категория препарата" */
+service RefCategoryEndpoint {
+  /** Поиск всех значений "Категория препарата" */
+  rpc FindAll(DefaultReferenceQuery) returns (DefaultReferenceCollection);
+
+  /** Поиск значения справочника "Категория препарата" по его ключу */
+  rpc FindByKey(DefaultReferenceKey) returns (DefaultReference);
+}

@@ -1,0 +1,68 @@
+app:
+  database:
+    protocol: jdbc
+    host: localhost
+    port: 5432
+    databaseName: pharmacy
+    schema: medication
+    username: pharmacy
+    password: pharmacy
+
+spring:
+  application:
+    name: medication
+
+  liquibase:
+    enabled: true
+    drop-first: false
+    default-schema: ${app.database.schema}
+    liquibase-schema: ${app.database.schema}
+    driver-class-name: ${spring.datasource.driver-class-name}
+    change-log: classpath:db/changelog/changelog-master.xml
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: ${app.database.protocol}:postgresql://${app.database.host}:${app.database.port}/${app.database.databaseName}?currentSchema=${app.database.schema}
+    username: ${app.database.username}
+    password: ${app.database.password}
+    hikari:
+      schema: ${app.database.schema}
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    generate-ddl: false
+    properties:
+      hibernate:
+        default_schema: ${app.database.schema}
+        format_sql: true
+        jdbc.lob.non_contextual_creation: true
+        validator.apply_to_ddl: false
+
+  grpc:
+    server:
+      port: 9002
+
+  cloud:
+    discovery:
+      enabled: true
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        port: ${spring.grpc.server.port}
+        hostname: localhost
+        register: true
+        enabled: true
+        prefer-ip-address: false
+        health-check-type: ttl
+        ttl: 15s
+        instance-id: ${spring.application.name}-${random.value}
+        heartbeat:
+          enabled: true
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE

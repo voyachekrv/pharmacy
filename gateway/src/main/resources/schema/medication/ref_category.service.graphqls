@@ -1,0 +1,7 @@
+extend type Query {
+    # Получение объекта справочника "Категория препарата" по его ключу
+    getRefCategoryByKey(key: String!): Reference!
+
+    # Получение отфильтрованного списка объектов справочника "Категория препарата"
+    getAllRefCategory(query: ReferenceQuery!): [Reference]!
+}

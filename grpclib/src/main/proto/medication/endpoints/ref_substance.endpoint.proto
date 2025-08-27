@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option java_package = "com.voyachek.pharmacy.grpclib.medication";
+option java_outer_classname = "RefSubstanceEndpointProto";
+
+import "utils/default_reference.util.proto";
+
+/** Сервис по работе со справочником "Действующее вещество" */
+service RefSubstanceEndpoint {
+  /** Поиск всех значений "Действующее вещество" */
+  rpc FindAll(DefaultReferenceQuery) returns (DefaultReferenceCollection);
+
+  /** Поиск значения справочника "Действующее вещество" по его ключу */
+  rpc FindByKey(DefaultReferenceKey) returns (DefaultReference);
+}

@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+option java_package = "com.voyachek.pharmacy.grpclib.medication";
+
+import "utils/search.util.proto";
+import "utils/page.util.proto";
+import "utils/default_reference.util.proto";
+import "google/protobuf/timestamp.proto";
+
+/** Фильтр для поиска действующего вещества в препарате */
+message MedicationFindAllActiveSubstanceRequest {
+    /** Название записи в справочнике */
+    string name = 1;
+    /** Фильтр поиска концентрации */
+    NumericSearchConditions concentration = 2;
+}
+
+/** Фильтр для поиска списка препаратов */
+message MedicationFindAllFilterRequest {
+    /** Отпускается ли препарат только по рецепту */
+    optional bool isPrescriptionOnly = 1;
+    /** Наименования категорий */
+    repeated string categories = 2;
+    /** Фильтр для поиска действующего вещества в препарате */
+    optional MedicationFindAllActiveSubstanceRequest activeSubstance = 3;
+}
+
+/** Запрос на получение отфильтрованной страницы списка препаратов */
+message MedicationFindAllRequest {
+    /** Фильтр для поиска списка препаратов */
+    optional MedicationFindAllFilterRequest filter = 1;
+    /**  Запрос на постраничный поиск */
+    PageRequest pagination = 2;
+    /** Сортировка по полю */
+    optional SortBy sort = 3;
+}
+
+/** Концентрация действующего вещества в препарате */
+message MedicationActiveSubstance {
+    /** Действующее вещество */
+    DefaultReference substance = 1;
+    /** Количество вещества */
+    double concentration = 2;
+}
+
+/** Препарат */
+message Medication {
+    /** ID записи */
+    string id = 1;
+    /** Название */
+    string name = 2;
+    /** Предыдущая цена */
+    optional double oldPrice = 3;
+    /** Текущая цена */
+    double price = 4;
+    /** Отпускается ли препарат только по рецепту */
+    bool isPrescriptionOnly = 5;
+    /** Категории препарата */
+    repeated DefaultReference medicationCategories = 6;
+    /** Действующие вещества */
+    repeated MedicationActiveSubstance activeSubstances = 7;
+    /** Дата создания */
+    google.protobuf.Timestamp createdAt = 8;
+    /** Дата обновления */
+    google.protobuf.Timestamp updatedAt = 9;
+}
+
+/** Страница списка найденных препаратов */
+message MedicationFindAllResponse {
+    /** Препараты */
+    repeated Medication content = 1;
+    /** Информация о странице */
+    PageResponse page = 2;
+}

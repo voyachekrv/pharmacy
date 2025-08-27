@@ -2,15 +2,24 @@ syntax = "proto3";
 
 option java_package = "com.voyachek.pharmacy.grpclib.utils.page";
 
+/** Запрос на постраничный поиск */
 message PageRequest {
+  /** Номер страницы */
   int32 page = 1;
+  /** Размер страницы */
   int32 size = 2;
 }
 
+/** Информация о странице */
 message PageResponse {
+  /** Номер страницы */
   int32 page = 1;
+  /** Размер страницы */
   int32 size = 2;
+  /** Всего записей */
   int64 totalElements = 3;
+  /** Всего страниц */
   int32 totalPages = 4;
+  /** Является ли страница последней */
   bool last = 5;
 }

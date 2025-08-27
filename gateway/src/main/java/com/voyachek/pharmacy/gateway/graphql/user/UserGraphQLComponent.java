@@ -11,11 +11,13 @@ import com.voyachek.pharmacy.gateway.mapper.user.UserMapper;
 import com.voyachek.pharmacy.grpclib.user.UserEndpointGrpc;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 
 /**
  * GraphQL-компонент для работы с сервисом пользователей
  */
 @DgsComponent
+@ConditionalOnProperty(name = "app.services.user.enabled", havingValue = "true", matchIfMissing = true)
 @RequiredArgsConstructor
 @Slf4j
 public class UserGraphQLComponent {

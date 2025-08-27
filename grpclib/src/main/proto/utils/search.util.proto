@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option java_package = "com.voyachek.pharmacy.grpclib.utils.search";
+
+/** Фильтр для чисел */
+message NumericSearchConditions {
+    /** Фильтр "<" */
+    optional int64 lt = 1;
+    /** Фильтр ">" */
+    optional int64 gt = 2;
+    /** Фильтр "<=" */
+    optional int64 lte = 3;
+    /** Фильтр ">=" */
+    optional int64 gte = 4;
+    /** Фильтр "=" */
+    optional int64 eq = 5;
+    /** Фильтр "!=" */
+    optional int64 neq = 6;
+}
+
+/** Направление сортировки (ASC / DESC) */
+enum SortDirection {
+    ASC = 0;
+    DESC = 1;
+}
+
+/** Сортировка по полю */
+message SortBy {
+    /** Название поля */
+    string field = 1;
+    /** Направление */
+    SortDirection direction = 2;
+}
