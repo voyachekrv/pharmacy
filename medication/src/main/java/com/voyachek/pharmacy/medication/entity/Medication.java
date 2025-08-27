@@ -8,8 +8,8 @@ import org.hibernate.annotations.Comment;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Препарат
@@ -64,7 +64,7 @@ public class Medication extends BaseEntity {
     @Comment("Категории препарата")
     @EqualsAndHashCode.Include
     @Builder.Default
-    private List<MedicationCategory> medicationCategories = new ArrayList<>();
+    private Set<MedicationCategory> medicationCategories = new HashSet<>();
 
     /**
      * Действующие вещества препарата
@@ -73,5 +73,5 @@ public class Medication extends BaseEntity {
     @Comment("Действующие вещества препарата")
     @EqualsAndHashCode.Include
     @Builder.Default
-    private List<MedicationSubstance> activeSubstances = new ArrayList<>();
+    private Set<MedicationSubstance> activeSubstances = new HashSet<>();
 }

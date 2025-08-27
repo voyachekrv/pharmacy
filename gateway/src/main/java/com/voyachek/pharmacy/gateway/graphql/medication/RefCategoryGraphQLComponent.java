@@ -26,6 +26,8 @@ public class RefCategoryGraphQLComponent {
 
     /**
      * Получение объекта справочника "Категория препарата" по его ключу
+     * @param key Ключ справочника
+     * @return {@link Reference}
      */
     @DgsQuery
     public Reference getRefCategoryByKey(String key) {
@@ -37,6 +39,8 @@ public class RefCategoryGraphQLComponent {
 
     /**
      * Получение отфильтрованного списка объектов справочника "Категория препарата"
+     * @param query Фильтр справочника
+     * @return {@link Collection<Reference>}
      */
     @DgsQuery
     public Collection<Reference> getAllRefCategory(ReferenceQuery query) {

@@ -7,6 +7,7 @@ import com.voyachek.pharmacy.medication.mapper.reference.RefCategoryMapper;
 import com.voyachek.pharmacy.medication.repository.reference.RefCategoryRepository;
 import com.voyachek.pharmacy.medication.service.reference.RefCategoryService;
 import com.voyachek.pharmacy.medication.specification.base.reference.DefaultReferenceSpecifications;
+import com.voyachek.pharmacy.medication.specification.reference.RefCategorySpecificationApplier;
 import io.grpc.Status;
 import io.grpc.StatusRuntimeException;
 import jakarta.persistence.EntityManager;
@@ -24,6 +25,7 @@ public class RefCategoryServiceImpl implements RefCategoryService {
 
     private final RefCategoryRepository refCategoryRepository;
     private final RefCategoryMapper refCategoryMapper;
+    private final RefCategorySpecificationApplier refCategorySpecificationApplier;
     private final EntityManager entityManager;
 
     @Override
@@ -46,7 +48,7 @@ public class RefCategoryServiceImpl implements RefCategoryService {
     @Transactional(readOnly = true)
     public DefaultReferenceUtil.DefaultReferenceCollection findAll(DefaultReferenceUtil.DefaultReferenceQuery request) {
         var values = refCategoryRepository
-                .findAll(DefaultReferenceSpecifications.nameLike(request.getName()),
+                .findAll(refCategorySpecificationApplier.applyDefault(request),
                         Sort.by(Sort.Direction.ASC, "ordering"))
                 .stream().map(refCategoryMapper::toProtobuf)
                 .toList();

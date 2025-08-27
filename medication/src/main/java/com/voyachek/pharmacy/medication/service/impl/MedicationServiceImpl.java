@@ -1,8 +1,10 @@
 package com.voyachek.pharmacy.medication.service.impl;
 
 import com.voyachek.pharmacy.grpclib.medication.MedicationCreateContract;
+import com.voyachek.pharmacy.grpclib.medication.MedicationFindAllContract;
 import com.voyachek.pharmacy.grpclib.medication.MedicationRemoveContract;
 import com.voyachek.pharmacy.grpclib.medication.MedicationUpdateContract;
+import com.voyachek.pharmacy.grpclib.utils.search.SearchUtil;
 import com.voyachek.pharmacy.medication.entity.Medication;
 import com.voyachek.pharmacy.medication.entity.MedicationCategory;
 import com.voyachek.pharmacy.medication.entity.MedicationSubstance;
@@ -12,9 +14,12 @@ import com.voyachek.pharmacy.medication.repository.MedicationRepository;
 import com.voyachek.pharmacy.medication.service.MedicationService;
 import com.voyachek.pharmacy.medication.service.reference.RefCategoryService;
 import com.voyachek.pharmacy.medication.service.reference.RefSubstanceService;
+import com.voyachek.pharmacy.medication.specification.MedicationSpecificationApplier;
 import io.grpc.Status;
 import io.grpc.StatusRuntimeException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +34,7 @@ public class MedicationServiceImpl implements MedicationService {
     private final MedicationMapper medicationMapper;
     private final RefCategoryService refCategoryService;
     private final RefSubstanceService refSubstanceService;
+    private final MedicationSpecificationApplier medicationSpecificationApplier;
 
     @Override
     @Transactional
@@ -80,6 +86,15 @@ public class MedicationServiceImpl implements MedicationService {
         return medicationMapper.toUpdatePriceResult(updatedEntity);
     }
 
+    @Override
+    public MedicationFindAllContract.MedicationFindAllResponse findAll(MedicationFindAllContract.MedicationFindAllRequest request) {
+        var page = medicationRepository.findAll(medicationSpecificationApplier.apply(request.getFilter()),
+                PageRequest.of(request.getPagination().getPage(), request.getPagination().getSize(),
+                        applySorting(request)));
+
+        return medicationMapper.toProtobufPage(page);
+    }
+
     private void createCategories(MedicationCreateContract.MedicationCreateRequest request,
                                                       Medication medication) {
         for (var category: request.getMedicationCategoriesList()) {
@@ -112,5 +127,19 @@ public class MedicationServiceImpl implements MedicationService {
                 .medication(medication)
                 .concentration(concentration)
                 .build();
+    }
+
+    private Sort applySorting(MedicationFindAllContract.MedicationFindAllRequest request) {
+        var direction = Sort.Direction.DESC;
+
+        if (request.hasSort()) {
+            if (request.getSort().getDirection().equals(SearchUtil.SortDirection.ASC)) {
+                direction = Sort.Direction.ASC;
+            }
+
+            return  Sort.by(direction, request.getSort().getField());
+        }
+
+        return Sort.by(direction, "createdAt");
     }
 }

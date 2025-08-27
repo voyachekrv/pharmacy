@@ -35,6 +35,11 @@ public class UserGrpcHandler extends UserEndpointGrpc.UserEndpointImplBase {
         responseObserver.onCompleted();
     }
 
+    /**
+     * Обновление пользователя
+     * @param request Контракт на обновление пользователя ({@link UserUpdateContract.UserUpdateRequest})
+     * @param responseObserver {@link StreamObserver<UserUpdateContract.UserUpdateResponse>}
+     */
     @Override
     public void update(UserUpdateContract.UserUpdateRequest request,
                        StreamObserver<UserUpdateContract.UserUpdateResponse> responseObserver) {
@@ -46,6 +51,11 @@ public class UserGrpcHandler extends UserEndpointGrpc.UserEndpointImplBase {
         responseObserver.onCompleted();
     }
 
+    /**
+     * Удаление пользователя
+     * @param request Контракт на удаление пользователя ({@link UserRemoveContract.UserRemoveRequest})
+     * @param responseObserver {@link StreamObserver<UserRemoveContract.UserRemoveResponse>}
+     */
     @Override
     public void remove(UserRemoveContract.UserRemoveRequest request,
                        StreamObserver<UserRemoveContract.UserRemoveResponse> responseObserver) {
@@ -57,6 +67,11 @@ public class UserGrpcHandler extends UserEndpointGrpc.UserEndpointImplBase {
         responseObserver.onCompleted();
     }
 
+    /**
+     * Поиск пользователя по ID
+     * @param request Контракт на поиск пользователя по ID ({@link UserFindByIdContract.UserFindByIdRequest})
+     * @param responseObserver {@link StreamObserver<UserFindByIdContract.UserFindByIdResponse>}
+     */
     @Override
     public void findById(UserFindByIdContract.UserFindByIdRequest request,
                          StreamObserver<UserFindByIdContract.UserFindByIdResponse> responseObserver) {
@@ -68,6 +83,11 @@ public class UserGrpcHandler extends UserEndpointGrpc.UserEndpointImplBase {
         responseObserver.onCompleted();
     }
 
+    /**
+     * Получение страницы списка пользователей
+     * @param request Запрос на постраничный поиск ({@link PageUtil.PageRequest})
+     * @param responseObserver {@link StreamObserver<UserFindAllContract.UserFindAllResponse>}
+     */
     @Override
     public void findAll(PageUtil.PageRequest request,
                         StreamObserver<UserFindAllContract.UserFindAllResponse> responseObserver) {

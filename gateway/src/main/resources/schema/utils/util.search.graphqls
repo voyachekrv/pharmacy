@@ -1,0 +1,29 @@
+# Фильтр для чисел
+input NumericSearchConditions {
+    # Фильтр "<"
+    lt: Int
+    # Фильтр ">"
+    gt: Int
+    # Фильтр "<="
+    lte: Int
+    # Фильтр ">="
+    gte: Int
+    # Фильтр "="
+    eq: Int
+    # Фильтр "!="
+    neq: Int
+}
+
+# Направление сортировки (ASC / DESC)
+enum SortDirection {
+    ASC
+    DESC
+}
+
+# Сортировка по полю
+input SortBy {
+    # Название поля
+    field: String!
+    # Направление
+    direction: SortDirection!
+}

@@ -18,6 +18,11 @@ public class RefCategoryGrpcHandler extends RefCategoryEndpointGrpc.RefCategoryE
 
     private final RefCategoryService refCategoryService;
 
+    /**
+     * Поиск значения справочника "Категория препарата" по его ключу
+     * @param request Объект ключа справочного значения {@link DefaultReferenceUtil.DefaultReferenceKey}
+     * @param responseObserver {@link DefaultReferenceUtil.DefaultReference}
+     */
     @Override
     public void findByKey(DefaultReferenceUtil.DefaultReferenceKey request,
                           StreamObserver<DefaultReferenceUtil.DefaultReference>  responseObserver) {
@@ -30,6 +35,11 @@ public class RefCategoryGrpcHandler extends RefCategoryEndpointGrpc.RefCategoryE
         responseObserver.onCompleted();
     }
 
+    /**
+     * Поиск всех значений "Категория препарата"
+     * @param request Объект поиска справочного значения {@link DefaultReferenceUtil.DefaultReferenceQuery}
+     * @param responseObserver {@link DefaultReferenceUtil.DefaultReferenceCollection}
+     */
     @Override
     public void findAll(DefaultReferenceUtil.DefaultReferenceQuery request,
                         StreamObserver<DefaultReferenceUtil.DefaultReferenceCollection>  responseObserver) {

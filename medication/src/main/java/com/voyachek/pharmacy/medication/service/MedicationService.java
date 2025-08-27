@@ -1,6 +1,7 @@
 package com.voyachek.pharmacy.medication.service;
 
 import com.voyachek.pharmacy.grpclib.medication.MedicationCreateContract;
+import com.voyachek.pharmacy.grpclib.medication.MedicationFindAllContract;
 import com.voyachek.pharmacy.grpclib.medication.MedicationRemoveContract;
 import com.voyachek.pharmacy.grpclib.medication.MedicationUpdateContract;
 
@@ -29,4 +30,11 @@ public interface MedicationService {
      * @return {@link MedicationUpdateContract.MedicationUpdatePriceResponse}
      */
     MedicationUpdateContract.MedicationUpdatePriceResponse updatePrice(MedicationUpdateContract.MedicationUpdatePriceRequest request);
+
+    /**
+     * Получение страницы списка пользователей
+     * @param request Запрос на поиск {@link MedicationFindAllContract.MedicationFindAllRequest}
+     * @return {@link MedicationFindAllContract.MedicationFindAllResponse}
+     */
+    MedicationFindAllContract.MedicationFindAllResponse findAll(MedicationFindAllContract.MedicationFindAllRequest request);
 }

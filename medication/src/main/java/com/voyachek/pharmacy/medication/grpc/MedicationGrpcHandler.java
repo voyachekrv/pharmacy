@@ -1,9 +1,6 @@
 package com.voyachek.pharmacy.medication.grpc;
 
-import com.voyachek.pharmacy.grpclib.medication.MedicationCreateContract;
-import com.voyachek.pharmacy.grpclib.medication.MedicationEndpointGrpc;
-import com.voyachek.pharmacy.grpclib.medication.MedicationRemoveContract;
-import com.voyachek.pharmacy.grpclib.medication.MedicationUpdateContract;
+import com.voyachek.pharmacy.grpclib.medication.*;
 import com.voyachek.pharmacy.medication.service.MedicationService;
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +17,11 @@ public class MedicationGrpcHandler extends MedicationEndpointGrpc.MedicationEndp
 
     private final MedicationService medicationService;
 
+    /**
+     * Создание нового препарата
+     * @param request Запрос на создание препарата {@link MedicationCreateContract.MedicationCreateRequest}
+     * @param responseObserver {@link StreamObserver<MedicationCreateContract.MedicationCreateResponse>}
+     */
     @Override
     public void create(MedicationCreateContract.MedicationCreateRequest request,
                        StreamObserver<MedicationCreateContract.MedicationCreateResponse> responseObserver) {
@@ -31,6 +33,11 @@ public class MedicationGrpcHandler extends MedicationEndpointGrpc.MedicationEndp
         responseObserver.onCompleted();
     }
 
+    /**
+     * Удаление препарата
+     * @param request Запрос на удаление препарата {@link MedicationRemoveContract.MedicationRemoveRequest}
+     * @param responseObserver {@link StreamObserver<MedicationRemoveContract.MedicationRemoveResponse>}
+     */
     @Override
     public void remove(MedicationRemoveContract.MedicationRemoveRequest request,
                        StreamObserver<MedicationRemoveContract.MedicationRemoveResponse> responseObserver) {
@@ -42,12 +49,33 @@ public class MedicationGrpcHandler extends MedicationEndpointGrpc.MedicationEndp
         responseObserver.onCompleted();
     }
 
+    /**
+     * Изменение цены препарата
+     * @param request Запрос на обновление цены препарата {@link MedicationUpdateContract.MedicationUpdatePriceRequest}
+     * @param responseObserver {@link StreamObserver<MedicationUpdateContract.MedicationUpdatePriceResponse>}
+     */
     @Override
     public void updatePrice(MedicationUpdateContract.MedicationUpdatePriceRequest request,
                             StreamObserver<MedicationUpdateContract.MedicationUpdatePriceResponse> responseObserver) {
         log.info("Принят запрос на изменение цены препарата, request = [{}]", request);
         var result = medicationService.updatePrice(request);
         log.info("Препарат изменен, response = [{}]", result);
+
+        responseObserver.onNext(result);
+        responseObserver.onCompleted();
+    }
+
+    /**
+     * Поиск списка препаратов по фильтру
+     * @param request ЗЗапрос на получение отфильтрованной страницы списка препаратов {@link MedicationFindAllContract.MedicationFindAllRequest}
+     * @param responseObserver {@link StreamObserver<MedicationFindAllContract.MedicationFindAllResponse>}
+     */
+    @Override
+    public void findAll(MedicationFindAllContract.MedicationFindAllRequest request,
+                        StreamObserver<MedicationFindAllContract.MedicationFindAllResponse> responseObserver) {
+        log.info("Принят запрос на поиск страницы списка препаратов, request = [{}]", request);
+        var result = medicationService.findAll(request);
+        log.info("Страница найдена, response.size = [{}]", result.getContentCount());
 
         responseObserver.onNext(result);
         responseObserver.onCompleted();

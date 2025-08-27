@@ -18,6 +18,11 @@ public class RefSubstanceGrpcHandler extends RefSubstanceEndpointGrpc.RefSubstan
 
     private final RefSubstanceService refSubstanceService;
 
+    /**
+     * Поиск значения справочника "Действующее вещество" по его ключу
+     * @param request Объект ключа справочного значения {@link DefaultReferenceUtil.DefaultReferenceKey}
+     * @param responseObserver {@link DefaultReferenceUtil.DefaultReference}
+     */
     @Override
     public void findByKey(DefaultReferenceUtil.DefaultReferenceKey request,
                           StreamObserver<DefaultReferenceUtil.DefaultReference> responseObserver) {
@@ -30,6 +35,11 @@ public class RefSubstanceGrpcHandler extends RefSubstanceEndpointGrpc.RefSubstan
         responseObserver.onCompleted();
     }
 
+    /**
+     * Поиск всех значений "Действующее вещество"
+     * @param request Объект поиска справочного значения {@link DefaultReferenceUtil.DefaultReferenceQuery}
+     * @param responseObserver {@link DefaultReferenceUtil.DefaultReferenceCollection}
+     */
     @Override
     public void findAll(DefaultReferenceUtil.DefaultReferenceQuery request,
                         StreamObserver<DefaultReferenceUtil.DefaultReferenceCollection>  responseObserver) {

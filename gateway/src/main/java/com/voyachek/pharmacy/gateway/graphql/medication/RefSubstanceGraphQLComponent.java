@@ -26,6 +26,8 @@ public class RefSubstanceGraphQLComponent {
 
     /**
      * Получение объекта справочника "Действующее вещество" по его ключу
+     * @param key Ключ справочника
+     * @return {@link Reference}
      */
     @DgsQuery
     public Reference getRefSubstanceByKey(String key) {
@@ -37,6 +39,8 @@ public class RefSubstanceGraphQLComponent {
 
     /**
      * Получение отфильтрованного списка объектов справочника "Действующее вещество"
+     * @param query Фильтр справочника
+     * @return {@link Collection<Reference>}
      */
     @DgsQuery
     public Collection<Reference> getAllRefSubstance(ReferenceQuery query) {

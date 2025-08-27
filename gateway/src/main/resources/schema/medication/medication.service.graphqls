@@ -1,8 +1,15 @@
 extend type Mutation {
     # Создание нового препарата
     createMedication(input: MedicationCreateInput!): MedicationCreateOutput!
+    # Удаление нового препарата
     deleteMedication(id: String!): MedicationDeleteOutput!
+    # Обновление цены препарата
     updateMedicationPrice(id: String!, newPrice: Float!): MedicationUpdatePriceOutput!
+}
+
+extend type Query {
+    # Получение отфильтрованной страницы списка препаратов
+    medications(filter: MedicationFindAllFilter, pagination: PageRequest!, sort: SortBy): MedicationPage!
 }
 
 # Концентрация действующего вещества в препарате
@@ -29,19 +36,84 @@ input MedicationCreateInput {
 
 # Результат создания нового препарата
 type MedicationCreateOutput {
+    # Идентификатор записи
     id: String!
 }
 
+# Результат удаления препарата
 type MedicationDeleteOutput {
+    # Идентификатор записи
     id: String!
+    # Название
     name: String
 }
 
+# Результат обновления цены препарата
 type MedicationUpdatePriceOutput {
+    # ID записи
     id: String!
+    # Название
     name: String
+    # Предыдущая цена
     oldPrice: Float
+    # Текущая цена
     newPrice: Float
+    # Дата обновления
     updatedAt: String
 }
 
+# Фильтр для поиска действующего вещества в препарате
+input MedicationFindAllActiveSubstanceInput {
+    # Название записи в справочнике
+    name: String!
+    # Фильтр поиска концентрации
+    concentration: NumericSearchConditions!
+}
+
+# Фильтр для поиска списка препаратов
+input MedicationFindAllFilter {
+    # Отпускается ли препарат только по рецепту
+    isPrescriptionOnly: Boolean
+    # Наименования категорий
+    categories: [String!]
+    # Фильтр для поиска действующего вещества в препарате
+    activeSubstance: MedicationFindAllActiveSubstanceInput
+}
+
+# Концентрация действующего вещества в препарате
+type MedicationActiveSubstance {
+    # Действующее вещество
+    substance: Reference
+    # Количество вещества
+    concentration: Float
+}
+
+# Препарат
+type Medication {
+    # ID записи
+    id: String!
+    # Название
+    name: String
+    # Предыдущая цена
+    oldPrice: Float
+    # Текущая цена
+    price: Float
+    # Отпускается ли препарат только по рецепту
+    isPrescriptionOnly: Boolean
+    # Категории препарата
+    medicationCategories: [Reference!]
+    # Действующие вещества
+    activeSubstances: [MedicationActiveSubstance!]
+    # Дата создания
+    createdAt: String
+    # Дата обновления
+    updatedAt: String
+}
+
+# Страница списка препаратов
+type MedicationPage {
+    # Список препаратов
+    content: [Medication]!
+    # Информация о страницы
+    pageInfo: PageInfo
+}

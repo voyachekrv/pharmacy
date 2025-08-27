@@ -30,7 +30,7 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: validate
-    show-sql: false
+    show-sql: true
     generate-ddl: false
     properties:
       hibernate:
@@ -60,3 +60,9 @@ spring:
         instance-id: ${spring.application.name}-${random.value}
         heartbeat:
           enabled: true
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
